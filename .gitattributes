@@ -1,0 +1,22 @@
+# Normalise line endings so the repo is consistent regardless of who clones it.
+# Without this, every commit from Windows warns "LF will be replaced by CRLF".
+* text=auto eol=lf
+
+# The launcher is run by cmd.exe — it must keep CRLF.
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# Binary: never touch these.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.zip binary
+*.db binary
+*.node binary
+*.exe binary
+
+# Generated map data — large, mechanical diffs aren't useful in review.
+public/geo/*.geo.json linguist-generated=true
+public/geo/admin1/*.geo.json linguist-generated=true

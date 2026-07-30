@@ -1,0 +1,32 @@
+# Dependencies
+/node_modules/
+
+# Build output
+/dist/
+
+# YOUR notes + screenshots. Never commit.
+#
+# The leading slash matters: a bare `data/` also matches `src/data/`, which holds
+# the app's seed + reference JSON (categories, coverage tiers, country facts,
+# script samples) and MUST ship — without it the frontend won't even build.
+/data/
+/data-backup-*/
+
+# Geodata pipeline scratch (downloaded/extracted Natural Earth zips, dev captures)
+/scratch/
+
+# Portable build output (share the zip via GitHub Releases, not the repo)
+/release/
+
+# Logs & OS cruft
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
+# Editor
+/.vscode/
+/.idea/
+
+# Machine-local Claude Code permissions (launch.json is kept — it documents how to run the app)
+/.claude/settings.local.json

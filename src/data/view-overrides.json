@@ -1,0 +1,9 @@
+{
+  "_comment": "Manual fit bboxes [w,s,e,n] — the FINAL say for antimeridian/degenerate cases where the union-of-covered-parts smart fit (M7) would break. JPN/ESP/PRT/FRA/NLD overrides were removed so the smart fit frames their covered territories.",
+  "USA": [-125.0, 24.4, -66.9, 49.5],
+  "RUS": [27.0, 42.0, 178.0, 77.0],
+  "NZL": [166.3, -47.4, 178.7, -34.3],
+  "FJI": [176.8, -19.3, 180.0, -16.0],
+  "NOR": [4.4, 57.9, 31.2, 71.3],
+  "CHL": [-76.0, -56.0, -66.3, -17.4]
+}

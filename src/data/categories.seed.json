@@ -1,0 +1,14 @@
+[
+  { "name": "License plates", "emoji": "🚗", "sort": 10 },
+  { "name": "Bollards", "emoji": "🦺", "sort": 20 },
+  { "name": "Road lines & markings", "emoji": "🛣️", "sort": 30 },
+  { "name": "Signs", "emoji": "🪧", "sort": 40 },
+  { "name": "Utility poles", "emoji": "⚡", "sort": 50 },
+  { "name": "Language & script", "emoji": "🔤", "sort": 60 },
+  { "name": "Architecture", "emoji": "🏠", "sort": 70 },
+  { "name": "Landscape & vegetation", "emoji": "🌲", "sort": 80 },
+  { "name": "Roads & shoulders", "emoji": "🛤️", "sort": 90 },
+  { "name": "Google car & camera generation", "emoji": "📷", "sort": 100 },
+  { "name": "Phone codes & domains", "emoji": "☎️", "sort": 110 },
+  { "name": "Misc", "emoji": "📌", "sort": 120 }
+]

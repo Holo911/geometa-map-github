@@ -1,0 +1,9 @@
+{
+  "FRA": ["PYF", "NCL", "SPM", "WLF", "BLM", "MAF"],
+  "GBR": ["FLK", "BMU", "IOT", "PCN", "IMN", "JEY"],
+  "USA": ["PRI", "GUM", "VIR", "ASM", "MNP"],
+  "NLD": ["CUW", "ABW", "SXM"],
+  "DNK": ["GRL", "FRO"],
+  "AUS": ["NFK"],
+  "NZL": ["COK", "NIU"]
+}

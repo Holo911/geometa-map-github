@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <title>GeoMeta Map</title>
+    <script>
+      // Test-only shim: some automated/occluded browser panes keep the tab
+      // permanently "hidden", so requestAnimationFrame never fires and WebGL
+      // libraries (MapLibre) stall on style load + never render. Activated only
+      // by an explicit ?headless flag — no effect on normal use.
+      if (location.search.indexOf('headless') !== -1) {
+        window.requestAnimationFrame = function (cb) {
+          return setTimeout(function () { cb(performance.now()); }, 16);
+        };
+        window.cancelAnimationFrame = function (id) { clearTimeout(id); };
+        try {
+          Object.defineProperty(document, 'hidden', { get: function () { return false; }, configurable: true });
+          Object.defineProperty(document, 'visibilityState', { get: function () { return 'visible'; }, configurable: true });
+        } catch (e) {}
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

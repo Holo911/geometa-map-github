@@ -1,0 +1,318 @@
+{
+  "_comment": "Alphabet/script samples shown when a country has no user-supplied alphabet image. `latin: true` marks Latin-script countries where only the DIACRITICS are the tell — those render as a 'diacritics' line. Plain Latin countries are deliberately absent: a generic A B C block would be noise.",
+  "THA": {
+    "script": "Thai",
+    "sample": "ก ข ค ง จ ฉ ช ซ ฌ ญ ฎ ฏ",
+    "script_ja": "タイ文字"
+  },
+  "LAO": {
+    "script": "Lao",
+    "sample": "ກ ຂ ຄ ງ ຈ ສ ຊ ຍ ດ ຕ ຖ ທ",
+    "script_ja": "ラオ文字"
+  },
+  "KHM": {
+    "script": "Khmer",
+    "sample": "ក ខ គ ឃ ង ច ឆ ជ ឈ ញ ដ ឋ",
+    "script_ja": "クメール文字"
+  },
+  "MMR": {
+    "script": "Burmese",
+    "sample": "က ခ ဂ ဃ င စ ဆ ဇ ဈ ည ဋ ဌ",
+    "script_ja": "ビルマ文字"
+  },
+  "IND": {
+    "script": "Devanagari",
+    "sample": "क ख ग घ ङ च छ ज झ ञ ट ठ",
+    "note": "Hindi; road signs often add a regional script + English",
+    "script_ja": "デーヴァナーガリー",
+    "note_ja": "ヒンディー語。道路標識には地域の文字と英語が併記されることも多いです。"
+  },
+  "NPL": {
+    "script": "Devanagari",
+    "sample": "क ख ग घ ङ च छ ज झ ञ ट ठ",
+    "script_ja": "デーヴァナーガリー"
+  },
+  "BGD": {
+    "script": "Bengali",
+    "sample": "অ আ ই ঈ উ ঊ ক খ গ ঘ চ ছ",
+    "script_ja": "ベンガル文字"
+  },
+  "LKA": {
+    "script": "Sinhala",
+    "sample": "අ ආ ඇ ඉ ක ඛ ග ඝ ච ඡ ට ඨ",
+    "note": "Tamil (அ ஆ இ ஈ) also appears in the north and east",
+    "script_ja": "シンハラ文字",
+    "note_ja": "北部・東部ではタミル文字（அ ஆ இ ஈ）も見られます。"
+  },
+  "ISR": {
+    "script": "Hebrew",
+    "sample": "א ב ג ד ה ו ז ח ט י כ ל",
+    "script_ja": "ヘブライ文字"
+  },
+  "GRC": {
+    "script": "Greek",
+    "sample": "Α Β Γ Δ Ε Ζ Η Θ Ι Κ Λ Μ",
+    "script_ja": "ギリシャ文字"
+  },
+  "CYP": {
+    "script": "Greek",
+    "sample": "Α Β Γ Δ Ε Ζ Η Θ Ι Κ Λ Μ",
+    "note": "Turkish (Latin) in the north",
+    "script_ja": "ギリシャ文字",
+    "note_ja": "北部はトルコ語（ラテン文字）です。"
+  },
+  "ARE": {
+    "script": "Arabic",
+    "sample": "ا ب ت ث ج ح خ د ذ ر ز س",
+    "script_ja": "アラビア文字"
+  },
+  "JOR": {
+    "script": "Arabic",
+    "sample": "ا ب ت ث ج ح خ د ذ ر ز س",
+    "script_ja": "アラビア文字"
+  },
+  "QAT": {
+    "script": "Arabic",
+    "sample": "ا ب ت ث ج ح خ د ذ ر ز س",
+    "script_ja": "アラビア文字"
+  },
+  "OMN": {
+    "script": "Arabic",
+    "sample": "ا ب ت ث ج ح خ د ذ ر ز س",
+    "script_ja": "アラビア文字"
+  },
+  "EGY": {
+    "script": "Arabic",
+    "sample": "ا ب ت ث ج ح خ د ذ ر ز س",
+    "script_ja": "アラビア文字"
+  },
+  "TUN": {
+    "script": "Arabic",
+    "sample": "ا ب ت ث ج ح خ د ذ ر ز س",
+    "note": "French (Latin) is co-official on most signage",
+    "script_ja": "アラビア文字",
+    "note_ja": "標識の多くはフランス語（ラテン文字）も併記されています。"
+  },
+  "LBN": {
+    "script": "Arabic",
+    "sample": "ا ب ت ث ج ح خ د ذ ر ز س",
+    "note": "French/English often alongside",
+    "script_ja": "アラビア文字",
+    "note_ja": "フランス語や英語が併記されることが多いです。"
+  },
+  "PSE": {
+    "script": "Arabic",
+    "sample": "ا ب ت ث ج ح خ د ذ ر ز س",
+    "script_ja": "アラビア文字"
+  },
+  "RUS": {
+    "script": "Cyrillic",
+    "sample": "А Б В Г Д Е Ж З И Й К Л",
+    "script_ja": "キリル文字"
+  },
+  "UKR": {
+    "script": "Cyrillic",
+    "sample": "А Б В Г Ґ Д Е Є Ж З И І",
+    "note": "Ґ є і ї are the Ukrainian tells",
+    "script_ja": "キリル文字",
+    "note_ja": "Ґ є і ї がウクライナ語の目印です。"
+  },
+  "BLR": {
+    "script": "Cyrillic",
+    "sample": "А Б В Г Д Е Ё Ж З І Ў Ы",
+    "note": "Ў and І are the Belarusian tells",
+    "script_ja": "キリル文字",
+    "note_ja": "Ў と І がベラルーシ語の目印です。"
+  },
+  "KAZ": {
+    "script": "Cyrillic",
+    "sample": "А Ә Б В Г Ғ Д Е Ж З Қ Ң",
+    "note": "Ә Ғ Қ Ң Ө Ұ Ү Һ are Kazakh-only",
+    "script_ja": "キリル文字",
+    "note_ja": "Ә Ғ Қ Ң Ө Ұ Ү Һ はカザフ語だけの文字です。"
+  },
+  "KGZ": {
+    "script": "Cyrillic",
+    "sample": "А Б В Г Д Е Ж З И Ң Ө Ү",
+    "script_ja": "キリル文字"
+  },
+  "MNG": {
+    "script": "Cyrillic",
+    "sample": "А Б В Г Д Е Ж З И Й Ө Ү",
+    "note": "Ө and Ү are the Mongolian tells",
+    "script_ja": "キリル文字",
+    "note_ja": "Ө と Ү がモンゴル語の目印です。"
+  },
+  "BGR": {
+    "script": "Cyrillic",
+    "sample": "А Б В Г Д Е Ж З И Й К Л",
+    "script_ja": "キリル文字"
+  },
+  "SRB": {
+    "script": "Cyrillic",
+    "sample": "А Б В Г Д Ђ Е Ж З И Ј Љ",
+    "note": "Ђ Ј Љ Њ Ћ Џ; Latin is used interchangeably",
+    "script_ja": "キリル文字",
+    "note_ja": "Ђ Ј Љ Њ Ћ Џ。ラテン文字も同じように使われます。"
+  },
+  "MKD": {
+    "script": "Cyrillic",
+    "sample": "А Б В Г Д Ѓ Е Ж З Ѕ И Ј",
+    "note": "Ѓ Ќ Ѕ Џ are the Macedonian tells",
+    "script_ja": "キリル文字",
+    "note_ja": "Ѓ Ќ Ѕ Џ が北マケドニア語の目印です。"
+  },
+  "GEO": {
+    "script": "Georgian",
+    "sample": "ა ბ გ დ ე ვ ზ თ ი კ ლ მ",
+    "script_ja": "ジョージア文字"
+  },
+  "ARM": {
+    "script": "Armenian",
+    "sample": "Ա Բ Գ Դ Ե Զ Է Ը Թ Ժ Ի Լ",
+    "script_ja": "アルメニア文字"
+  },
+  "KOR": {
+    "script": "Hangul",
+    "sample": "ㄱ ㄴ ㄷ ㄹ ㅁ ㅂ ㅅ ㅇ ㅈ ㅊ ㅋ ㅌ",
+    "script_ja": "ハングル"
+  },
+  "JPN": {
+    "script": "Japanese kana",
+    "sample": "あ い う え お か き く け こ さ し",
+    "note": "kana + kanji; katakana カ タ カ ナ for loanwords",
+    "script_ja": "仮名",
+    "note_ja": "仮名と漢字。外来語はカタカナ（カ タ カ ナ）で書きます。"
+  },
+  "TWN": {
+    "script": "Chinese (traditional)",
+    "sample": "的 一 是 不 了 人 我 在 有 他 這 個",
+    "script_ja": "繁体字"
+  },
+  "HKG": {
+    "script": "Chinese (traditional)",
+    "sample": "的 一 是 不 了 人 我 在 有 他 這 個",
+    "script_ja": "繁体字"
+  },
+  "MAC": {
+    "script": "Chinese (traditional)",
+    "sample": "的 一 是 不 了 人 我 在 有 他 這 個",
+    "note": "Portuguese (Latin) on street signs",
+    "script_ja": "繁体字",
+    "note_ja": "街路標識にはポルトガル語（ラテン文字）も使われます。"
+  },
+  "ETH": {
+    "script": "Ge'ez / Amharic",
+    "sample": "ሀ ለ ሐ መ ሠ ረ ሰ ሸ ቀ በ ተ ኀ",
+    "script_ja": "ゲエズ文字（アムハラ語）"
+  },
+  "MDV": {
+    "script": "Thaana",
+    "sample": "ހ ށ ނ ރ ބ ޅ ކ އ ވ މ ފ ދ",
+    "script_ja": "ターナ文字"
+  },
+  "HUN": {
+    "latin": true,
+    "script": "Latin + Hungarian",
+    "sample": "á é í ó ö ő ú ü ű",
+    "note": "ő and ű (double acute) are Hungary-only",
+    "script_ja": "ラテン文字＋ハンガリー語",
+    "note_ja": "ő と ű（二重アクセント）はハンガリー語だけの文字です。"
+  },
+  "CZE": {
+    "latin": true,
+    "script": "Latin + Czech",
+    "sample": "á č ď é ě í ň ř š ť ů ž",
+    "note": "ř and ů are the Czech tells",
+    "script_ja": "ラテン文字＋チェコ語",
+    "note_ja": "ř と ů がチェコ語の目印です。"
+  },
+  "SVK": {
+    "latin": true,
+    "script": "Latin + Slovak",
+    "sample": "á ä č ď é í ĺ ľ ň ô ŕ š",
+    "note": "ľ ĺ ŕ ô — no ř (that's Czech)",
+    "script_ja": "ラテン文字＋スロバキア語",
+    "note_ja": "ľ ĺ ŕ ô が特徴。ř はチェコ語なので出てきません。"
+  },
+  "POL": {
+    "latin": true,
+    "script": "Latin + Polish",
+    "sample": "ą ć ę ł ń ó ś ź ż",
+    "note": "ł and ż/ź are unmistakable",
+    "script_ja": "ラテン文字＋ポーランド語",
+    "note_ja": "ł と ż／ź がとても分かりやすい目印です。"
+  },
+  "ROU": {
+    "latin": true,
+    "script": "Latin + Romanian",
+    "sample": "ă â î ș ț",
+    "note": "ș and ț (comma below)",
+    "script_ja": "ラテン文字＋ルーマニア語",
+    "note_ja": "ș と ț（下にコンマ）が特徴です。"
+  },
+  "PRT": {
+    "latin": true,
+    "script": "Latin + Portuguese",
+    "sample": "ã á à â ç é ê í õ ó ô ú",
+    "note": "ã and õ (tilde) vs Spanish ñ",
+    "script_ja": "ラテン文字＋ポルトガル語",
+    "note_ja": "ã と õ（チルダ）。スペイン語の ñ とは別物です。"
+  },
+  "TUR": {
+    "latin": true,
+    "script": "Latin + Turkish",
+    "sample": "ç ğ ı İ ö ş ü",
+    "note": "dotless ı and ğ are Turkey-only",
+    "script_ja": "ラテン文字＋トルコ語",
+    "note_ja": "点のない ı と ğ はトルコ語だけの文字です。"
+  },
+  "VNM": {
+    "latin": true,
+    "script": "Latin + Vietnamese",
+    "sample": "ă â đ ê ô ơ ư ạ ả ấ ầ ẫ",
+    "note": "stacked tone marks + đ",
+    "script_ja": "ラテン文字＋ベトナム語",
+    "note_ja": "重なった声調記号と đ が特徴です。"
+  },
+  "ISL": {
+    "latin": true,
+    "script": "Latin + Icelandic",
+    "sample": "á ð é í ó ú ý þ æ ö",
+    "note": "þ (thorn) and ð (eth)",
+    "script_ja": "ラテン文字＋アイスランド語",
+    "note_ja": "þ（ソーン）と ð（エズ）が特徴です。"
+  },
+  "EST": {
+    "latin": true,
+    "script": "Latin + Estonian",
+    "sample": "ä ö õ ü š ž",
+    "note": "õ is the Estonian tell",
+    "script_ja": "ラテン文字＋エストニア語",
+    "note_ja": "õ がエストニア語の目印です。"
+  },
+  "LVA": {
+    "latin": true,
+    "script": "Latin + Latvian",
+    "sample": "ā č ē ģ ī ķ ļ ņ š ū ž",
+    "note": "long macrons ā ē ī ū + ģ ķ ļ ņ",
+    "script_ja": "ラテン文字＋ラトビア語",
+    "note_ja": "長音記号の ā ē ī ū と ģ ķ ļ ņ が特徴です。"
+  },
+  "LTU": {
+    "latin": true,
+    "script": "Latin + Lithuanian",
+    "sample": "ą č ę ė į š ų ū ž",
+    "note": "ė and ų are Lithuanian-only",
+    "script_ja": "ラテン文字＋リトアニア語",
+    "note_ja": "ė と ų はリトアニア語だけの文字です。"
+  },
+  "MLT": {
+    "latin": true,
+    "script": "Latin + Maltese",
+    "sample": "ċ ġ għ ħ ż",
+    "note": "ħ and ż — the only Latin-script Semitic language",
+    "script_ja": "ラテン文字＋マルタ語",
+    "note_ja": "ħ と ż。ラテン文字で書く唯一のセム語です。"
+  }
+}
