@@ -55,9 +55,12 @@ export const api = {
     }),
 
   // tags
-  createTag: (payload: { name: string; color: string; sort?: number }) =>
+  createTag: (payload: { name: string; color: string; color2?: string | null; sort?: number }) =>
     req<Tag>('/api/tags', json(payload)),
-  updateTag: (id: number, payload: { name?: string; color?: string; sort?: number }) =>
+  updateTag: (
+    id: number,
+    payload: { name?: string; color?: string; color2?: string | null; sort?: number }
+  ) =>
     req<Tag>(`/api/tags/${id}`, { ...json(payload), method: 'PATCH' }),
   deleteTag: (id: number) => req<{ ok: boolean }>(`/api/tags/${id}`, { method: 'DELETE' }),
 

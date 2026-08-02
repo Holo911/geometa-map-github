@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { api } from '../lib/api';
 import { categoryLabel, useT } from '../i18n';
 import type { Category, Entry, EntryImage, Scope, Tag } from '../lib/types';
+import TagSwatch from './TagSwatch';
 
 export interface RegionOption {
   id: string;
@@ -29,9 +30,14 @@ interface EntryEditorProps {
 
 const OK_TYPES = new Set(['image/png', 'image/jpeg', 'image/webp', 'image/gif']);
 
+// The plate/sign vocabulary — the colours a clue is actually made of.
+// Deliberately no violet: that hue means "drives left" on the map now (see
+// LHT in palette.ts), and one colour must never carry two meanings. White and
+// near-black earn their slots because plate backgrounds so often are exactly
+// that, and even more often the two of them together.
 const TAG_COLORS = [
   '#f5c518', '#e0533d', '#e07a3d', '#5ec26a', '#3dc9b0', '#3db0e0',
-  '#4c7cff', '#9b5de5', '#e05da0', '#c98a6e', '#7a8b99', '#cbd3da',
+  '#4c7cff', '#e05da0', '#c98a6e', '#7a8b99', '#f2f5f8', '#20252d',
 ];
 
 interface Pending {
@@ -67,6 +73,9 @@ export default function EntryEditor({
   const [tagIds, setTagIds] = useState<number[]>(entry?.tag_ids ?? []);
   const [newTagName, setNewTagName] = useState('');
   const [newTagColor, setNewTagColor] = useState(TAG_COLORS[0]);
+  const [newTagColor2, setNewTagColor2] = useState<string | null>(null);
+  // non-null ⇒ the create row is editing that existing tag instead
+  const [editingTagId, setEditingTagId] = useState<number | null>(null);
 
   // Region selection is controlled by the parent when onRegionIdsChange is given
   // (so picking on the map and in the list share one source of truth).
@@ -120,21 +129,44 @@ export default function EntryEditor({
   const toggleTag = (id: number) =>
     setTagIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
 
-  const [creatingTag, setCreatingTag] = useState(false);
-  const createNewTag = async () => {
+  const [savingTag, setSavingTag] = useState(false);
+
+  /** One row does both jobs: create a tag, or restyle the one being edited. */
+  const submitTag = async () => {
     const name = newTagName.trim();
-    if (!name || creatingTag) return;
-    setCreatingTag(true);
+    if (!name || savingTag) return;
+    setSavingTag(true);
     try {
-      const tag = await api.createTag({ name, color: newTagColor });
-      setTagIds((prev) => [...prev, tag.id]);
+      if (editingTagId !== null) {
+        // '' is how the API is told to drop the second colour — null/undefined
+        // would read as "leave it alone".
+        await api.updateTag(editingTagId, { name, color: newTagColor, color2: newTagColor2 ?? '' });
+        setEditingTagId(null);
+      } else {
+        const tag = await api.createTag({ name, color: newTagColor, color2: newTagColor2 });
+        setTagIds((prev) => [...prev, tag.id]);
+      }
       setNewTagName('');
+      setNewTagColor2(null);
       onTagsChanged();
     } catch (e) {
       setError((e as Error).message);
     } finally {
-      setCreatingTag(false);
+      setSavingTag(false);
     }
+  };
+
+  const beginEditTag = (tag: Tag) => {
+    setEditingTagId(tag.id);
+    setNewTagName(tag.name);
+    setNewTagColor(tag.color);
+    setNewTagColor2(tag.color2);
+  };
+
+  const cancelEditTag = () => {
+    setEditingTagId(null);
+    setNewTagName('');
+    setNewTagColor2(null);
   };
 
   const addFiles = useCallback((files: FileList | File[]) => {
@@ -333,18 +365,30 @@ export default function EntryEditor({
           <div>
             <label className="field-label">{t('editor.tags')}</label>
             <div className="tag-picker">
-              {tags.map((tag) => (
-                <button
-                  key={tag.id}
-                  type="button"
-                  className={`tag-opt ${tagIds.includes(tag.id) ? 'on' : ''}`}
-                  style={tagIds.includes(tag.id) ? { background: tag.color, borderColor: tag.color, color: '#06131c' } : { borderColor: tag.color }}
-                  onClick={() => toggleTag(tag.id)}
-                >
-                  <span className="tag-dot" style={{ background: tag.color }} />
-                  {tag.name}
-                </button>
-              ))}
+              {tags.map((tag) => {
+                const on = tagIds.includes(tag.id);
+                return (
+                  <span
+                    key={tag.id}
+                    className={`tag-opt ${on ? 'on' : ''}`}
+                    style={on ? { background: tag.color, borderColor: tag.color, color: '#06131c' } : { borderColor: tag.color }}
+                  >
+                    <button type="button" className="tag-opt-main" onClick={() => toggleTag(tag.id)}>
+                      <TagSwatch tag={tag} />
+                      {tag.name}
+                    </button>
+                    <button
+                      type="button"
+                      className="tag-opt-edit"
+                      title={t('editor.editTagColors')}
+                      aria-label={t('editor.editTagColors')}
+                      onClick={() => beginEditTag(tag)}
+                    >
+                      ✎
+                    </button>
+                  </span>
+                );
+              })}
             </div>
             <div className="tag-create">
               <input
@@ -355,25 +399,59 @@ export default function EntryEditor({
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
                     e.preventDefault();
-                    createNewTag();
+                    submitTag();
                   }
                 }}
               />
-              <div className="swatches">
-                {TAG_COLORS.map((c) => (
-                  <button
-                    key={c}
-                    type="button"
-                    className={`swatch ${newTagColor === c ? 'sel' : ''}`}
-                    style={{ background: c }}
-                    onClick={() => setNewTagColor(c)}
-                    aria-label={c}
-                  />
-                ))}
-              </div>
-              <button type="button" className="btn" disabled={!newTagName.trim() || creatingTag} onClick={createNewTag}>
-                {t('editor.createTag')}
+              <button type="button" className="btn" disabled={!newTagName.trim() || savingTag} onClick={submitTag}>
+                {editingTagId !== null ? t('editor.save') : t('editor.createTag')}
               </button>
+              {editingTagId !== null && (
+                <button type="button" className="btn" onClick={cancelEditTag}>
+                  {t('common.cancel')}
+                </button>
+              )}
+            </div>
+            <div className="tag-colors">
+              <div className="tag-color-row">
+                <TagSwatch tag={{ color: newTagColor, color2: newTagColor2 }} shape="square" />
+                <div className="swatches">
+                  {TAG_COLORS.map((c) => (
+                    <button
+                      key={c}
+                      type="button"
+                      className={`swatch ${newTagColor === c ? 'sel' : ''}`}
+                      style={{ background: c }}
+                      onClick={() => setNewTagColor(c)}
+                      aria-label={c}
+                    />
+                  ))}
+                </div>
+              </div>
+              <div className="tag-color-row">
+                <span className="tag-color-plus" title={t('editor.tagSecondColor')}>
+                  +
+                </span>
+                <div className="swatches">
+                  <button
+                    type="button"
+                    className={`swatch swatch-none ${newTagColor2 === null ? 'sel' : ''}`}
+                    onClick={() => setNewTagColor2(null)}
+                    title={t('editor.tagNoSecondColor')}
+                    aria-label={t('editor.tagNoSecondColor')}
+                  />
+                  {TAG_COLORS.map((c) => (
+                    <button
+                      key={c}
+                      type="button"
+                      className={`swatch ${newTagColor2 === c ? 'sel' : ''}`}
+                      style={{ background: c }}
+                      onClick={() => setNewTagColor2(c)}
+                      aria-label={c}
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 

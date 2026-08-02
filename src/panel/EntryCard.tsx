@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import type { Entry, EntryImage, Tag } from '../lib/types';
 import { renderMarkdown } from '../lib/markdown';
 import { useT } from '../i18n';
+import TagSwatch from './TagSwatch';
 
 interface EntryCardProps {
   entry: Entry;
@@ -104,7 +105,7 @@ export default function EntryCard({
               key={`t${tag.id}`}
               style={{ borderColor: tag.color, color: tag.color }}
             >
-              <span className="tag-dot" style={{ background: tag.color }} />
+              <TagSwatch tag={tag} />
               {tag.name}
             </span>
           ))}

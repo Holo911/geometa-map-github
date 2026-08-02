@@ -9,7 +9,7 @@ provider or API key. Your notes live in a plain `data/` folder you can copy to b
 
 - Only countries with Street View coverage are clickable; hover to highlight, click to
   open its notes.
-- Countries are coloured by **driving side** (blue = right, coral = left) and by
+- Countries are coloured by **driving side** (blue = right, violet = left) and by
   **coverage tier** (full vs. limited).
 - Notes hold **Markdown + pasted screenshots**, and can apply to a whole country or to
   specific regions/prefectures.
@@ -17,7 +17,9 @@ provider or API key. Your notes live in a plain `data/` folder you can copy to b
   driving side, language — plus the **alphabet** (`ก ข ค` for Thailand, `ő ű` for Hungary).
   You can paste in your own alphabet chart per country.
 - **Tags** and a **By category** map mode: pick "license plates" and every country you
-  have a plate note for lights up.
+  have a plate note for lights up — and expands into a list of exactly which ones, so
+  nothing gets overlooked. A tag can carry **two colours**, because most plate and sign
+  clues are a pair (yellow on black, blue on white).
 - Optional **road overlay** shows where roads actually are (Peru's roads hug the coast;
   the Amazon is empty).
 - UI in **English or 日本語** (Settings → 🌐).
@@ -51,9 +53,13 @@ npm start
 Then open **http://127.0.0.1:5174**. The server binds to localhost only — it is not
 exposed to your network, and there is no login.
 
+> **Switched Node versions?** `better-sqlite3` is a compiled module tied to one Node
+> ABI, so `npm start` will complain about `NODE_MODULE_VERSION`. One command fixes it:
+> `npm rebuild better-sqlite3`.
+
 ### Windows: a version that needs no Node at all
 
-`npm run package` produces `release/GeoMetaMap-win64.zip` (~31 MB) — a self-contained
+`npm run package` produces `release/GeoMetaMap-win64.zip` (~35 MB) — a self-contained
 folder with Node bundled inside. Unzip it, double-click **GeoMetaMap.cmd**, and the app
 opens in your browser. Nothing gets installed; everything lives in that folder. Handy for
 sharing with someone who doesn't develop.
@@ -85,6 +91,9 @@ bundles the database and images into one file; **Import backup…** restores it 
 current data is copied to a `data-backup-…` folder first, so importing is never
 destructive).
 
+Upgrading is safe: the database migrates itself on start, and existing notes are never
+rewritten.
+
 ## Keyboard shortcuts
 
 | Key | Action |
@@ -105,6 +114,10 @@ npm run geodata
 
 Downloads Natural Earth admin-0 / admin-1 / roads, simplifies them with mapshaper, and
 rewrites `public/geo/`. Downloaded archives are cached in `scratch/`.
+
+Natural Earth's 50m country layer drops the smallest dependencies, so a few places that
+do have Street View would otherwise have no polygon at all. `prepare-geodata.mjs`
+backfills those from the 10m data — add to its `SUPPLEMENT` list if you find another.
 
 ---
 

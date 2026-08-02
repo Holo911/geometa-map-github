@@ -209,6 +209,53 @@ function largestPolygonBBox(geometry) {
 
 // ---- country pipeline -------------------------------------------------------
 
+// Natural Earth's own label, where it is actively unhelpful. "Indian Ocean Ter."
+// is the Australian code IOA — Christmas Island plus the Cocos (Keeling)
+// Islands. Both have Street View, and nobody hunting for Christmas Island would
+// ever guess that name, on the map or in search.
+const RENAME = {
+  IOA: 'Christmas I. & Cocos Is.',
+};
+
+// Entities that HAVE Street View but are missing from the 50m admin-0 layer —
+// it drops the very smallest dependencies. The 10m admin-1 layer does carry
+// them, so we lift the geometry from there. Without this, Gibraltar has a
+// coverage tier and no polygon to paint it on: invisible, unclickable,
+// unsearchable.
+const SUPPLEMENT = [{ a3: 'GIB', a2: 'GI', name: 'Gibraltar', continent: 'Europe' }];
+
+/** Add SUPPLEMENT entities to the country layer, using admin-1 geometry. */
+function supplementCountries(fc, admin1ByCountry) {
+  const have = new Set(fc.features.map((f) => f.properties.a3));
+  for (const meta of SUPPLEMENT) {
+    if (have.has(meta.a3)) continue;
+    const regions = admin1ByCountry.get(meta.a3);
+    if (!regions || !regions.length) {
+      log(`WARNING: no admin-1 geometry for ${meta.a3} — supplement skipped`);
+      continue;
+    }
+    const coordinates = [];
+    for (const rf of regions) for (const poly of polygonsOf(rf.geometry)) coordinates.push(poly);
+    const geometry = { type: 'MultiPolygon', coordinates };
+    fc.features.push({
+      type: 'Feature',
+      properties: { ...meta, view: largestPolygonBBox(geometry) ?? [-10, -10, 10, 10] },
+      geometry,
+    });
+    log(`supplemented ${meta.a3} from admin-1 (${coordinates.length} polygon(s))`);
+  }
+}
+
+function writeCountries(fc) {
+  const outPath = path.join(GEO_OUT, 'countries.geo.json');
+  fs.writeFileSync(outPath, JSON.stringify(fc));
+  const size = fs.statSync(outPath).size;
+  log(`countries.geo.json: ${fc.features.length} features, ${mb(size)}`);
+  if (size > 2.5 * 1024 * 1024) {
+    log('WARNING: countries.geo.json exceeds ~2.5 MB target — consider stronger simplification.');
+  }
+}
+
 async function buildCountries(shp) {
   const rawOut = path.join(SCRATCH, 'countries_raw.geo.json');
   const cmd = [
@@ -259,6 +306,7 @@ async function buildCountries(shp) {
   for (const f of fc.features) {
     delete f.properties.adm0;
     const a3 = f.properties.a3;
+    if (RENAME[a3]) f.properties.name = RENAME[a3];
     let view = overrides[a3] && Array.isArray(overrides[a3])
       ? overrides[a3]
       : largestPolygonBBox(f.geometry);
@@ -268,15 +316,10 @@ async function buildCountries(shp) {
     }
     f.properties.view = view;
   }
+  if (missingView) log(`${missingView} feature(s) without a geometry view`);
 
-  const outPath = path.join(GEO_OUT, 'countries.geo.json');
-  fs.writeFileSync(outPath, JSON.stringify(fc));
-  const size = fs.statSync(outPath).size;
-  log(`countries.geo.json: ${fc.features.length} features, ${mb(size)}` +
-      (missingView ? ` (${missingView} without geometry view)` : ''));
-  if (size > 2.5 * 1024 * 1024) {
-    log('WARNING: countries.geo.json exceeds ~2.5 MB target — consider stronger simplification.');
-  }
+  // The file is written after supplementCountries() runs — it needs admin-1,
+  // which isn't built yet.
   return fc;
 }
 
@@ -531,6 +574,8 @@ async function main() {
 
   const countriesFC = await buildCountries(countriesShp);
   const admin1ByCountry = await buildAdmin1(admin1Shp);
+  supplementCountries(countriesFC, admin1ByCountry);
+  writeCountries(countriesFC);
   buildParts(countriesFC, admin1ByCountry);
   await buildRoads(findShp(path.join(SCRATCH, SOURCES.roads.dir)));
 

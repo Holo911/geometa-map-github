@@ -107,6 +107,9 @@ export const en = {
   'editor.tags': 'Tags',
   'editor.newTagPlaceholder': 'New tag name…',
   'editor.createTag': '+ Create',
+  'editor.editTagColors': 'Edit this tag',
+  'editor.tagSecondColor': 'Second color (optional)',
+  'editor.tagNoSecondColor': 'No second color',
   'editor.appliesTo': 'Applies to',
   'editor.wholeCountry': 'Whole country',
   'editor.specificRegions': 'Specific regions',
@@ -146,7 +149,7 @@ export const en = {
   'settings.mapAppearance': 'Map appearance',
   'settings.colorBySide': 'Color countries by driving side',
   'settings.colorBySideHint':
-    'On: right-hand-traffic countries are steel blue, left-hand terracotta. Off: one uniform slate.',
+    'On: right-hand-traffic countries are steel blue, left-hand violet. Off: one uniform slate.',
   'settings.limitedAsUncovered': 'Treat limited coverage as uncovered',
   'settings.limitedAsUncoveredHint': 'Hide countries that only have sparse trekker/partial coverage.',
   'settings.uncoveredCountries': 'Uncovered countries',

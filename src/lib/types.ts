@@ -63,6 +63,8 @@ export interface Tag {
   id: number;
   name: string;
   color: string;
+  /** Optional second colour, for clues that are a pair (yellow-on-black plates). */
+  color2: string | null;
   sort: number | null;
 }
 

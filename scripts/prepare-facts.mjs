@@ -21,7 +21,14 @@ const COUNTRIES = path.join(ROOT, 'public', 'geo', 'countries.geo.json');
 const OUT = path.join(ROOT, 'src', 'data', 'country-facts.json');
 
 // Our a3 -> world-countries cca3, where they differ.
-const A3_MAP = { KOS: 'UNK' };
+// IOA is Natural Earth's joint code for Christmas Island + Cocos (Keeling).
+// Christmas Island is the one with real Street View coverage and the two share
+// currency, calling code and driving side, so CXR's facts describe the feature.
+const A3_MAP = { KOS: 'UNK', IOA: 'CXR' };
+
+// Japanese names we set ourselves, where the dataset's name describes only part
+// of the feature.
+const NAME_JA = { IOA: 'クリスマス島・ココス諸島' };
 
 // world-countries 5.1.0 dropped the `car.side` field, so we carry the (stable,
 // finite) set of left-hand-traffic countries/territories ourselves, keyed by our a3.
@@ -33,7 +40,7 @@ const LHT = new Set([
   // Asia
   'JPN', 'IND', 'IDN', 'THA', 'MYS', 'SGP', 'PAK', 'BGD', 'LKA', 'NPL', 'BTN', 'BRN', 'HKG', 'MAC', 'TLS', 'MDV',
   // Oceania
-  'AUS', 'NZL', 'PNG', 'FJI', 'TON', 'WSM', 'SLB', 'VUT', 'KIR', 'NRU', 'TUV', 'NIU', 'COK',
+  'AUS', 'NZL', 'PNG', 'FJI', 'TON', 'WSM', 'SLB', 'VUT', 'KIR', 'NRU', 'TUV', 'NIU', 'COK', 'IOA', 'NFK',
   // Americas & Caribbean
   'GUY', 'SUR', 'JAM', 'BHS', 'BRB', 'TTO', 'ATG', 'DMA', 'GRD', 'KNA', 'LCA', 'VCT',
   'BMU', 'VIR', 'CYM', 'TCA', 'FLK', 'MSR', 'AIA', 'VGB',
@@ -94,7 +101,7 @@ function main() {
     }
     // Japanese country name for the ja UI (map tooltips, panel header, search,
     // cue pill, territory chips). Falls back to the English name.
-    const nameJa = wc.translations?.jpn?.common || null;
+    const nameJa = NAME_JA[a3] || wc.translations?.jpn?.common || null;
     if (!nameJa) noJa.push(a3);
     out[a3] = {
       native: pickNative(wc),

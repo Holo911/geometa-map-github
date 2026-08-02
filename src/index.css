@@ -34,9 +34,9 @@
   --map-rht: #3a6ea8;
   --map-rht-border: #6fa3d4;
   --map-rht-hover: #63b3ff;
-  --map-lht: #c05a48;
-  --map-lht-border: #e0937f;
-  --map-lht-hover: #ff8a6b;
+  --map-lht: #8f57c0;
+  --map-lht-border: #c19ae0;
+  --map-lht-hover: #c98cff;
   --map-road: #ffd166;
   --map-notes-outline: #ffd085;
 
@@ -898,6 +898,34 @@ button {
 .rail-row.empty .rail-count {
   color: var(--text-faint);
 }
+/* the countries carrying the active category/tag, listed under its row */
+.rail-countries {
+  display: flex;
+  flex-direction: column;
+  margin: 2px 0 4px 14px;
+  padding-left: 8px;
+  border-left: 1px solid var(--border);
+}
+.rail-country {
+  padding: 5px 8px;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  color: var(--text-dim);
+  text-align: left;
+  font-size: 12.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rail-country:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+.rail-country.active {
+  color: var(--accent);
+  font-weight: 650;
+}
 .rail-empty-hint {
   font-size: 12px;
   color: var(--text-faint);
@@ -925,6 +953,11 @@ button {
   border-radius: 50%;
   display: inline-block;
 }
+/* white and near-black tag colours need an edge or they dissolve into whatever
+   surface they land on */
+.tag-swatch {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+}
 
 /* tag picker in the editor */
 .tag-picker {
@@ -936,13 +969,36 @@ button {
 .tag-opt {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
+  padding: 0 4px 0 10px;
   border-radius: 999px;
   border: 1px solid var(--border-strong);
   background: var(--surface-1);
   color: var(--text);
   font-size: 12.5px;
+}
+/* the two halves of a tag pill: pick it, or restyle it */
+.tag-opt-main,
+.tag-opt-edit {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.tag-opt-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+}
+.tag-opt-edit {
+  padding: 4px 5px;
+  opacity: 0.45;
+  font-size: 11px;
+  line-height: 1;
+}
+.tag-opt-edit:hover {
+  opacity: 1;
 }
 .tag-create {
   display: flex;
@@ -954,6 +1010,35 @@ button {
   flex: 1;
   min-width: 140px;
 }
+.tag-colors {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 7px;
+}
+.tag-color-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+/* the "+" that marks the optional second colour, sized to line up with the
+   live preview swatch above it */
+.tag-color-plus {
+  width: 14px;
+  text-align: center;
+  color: var(--text-faint);
+  font-size: 14px;
+  flex-shrink: 0;
+}
+/* "no second colour" — a slashed empty square */
+.swatch-none {
+  background: linear-gradient(
+    135deg,
+    transparent 0 44%,
+    var(--text-faint) 44% 56%,
+    transparent 56% 100%
+  );
+}
 .swatches {
   display: flex;
   gap: 4px;
@@ -964,6 +1049,8 @@ button {
   border-radius: 5px;
   border: 2px solid transparent;
   cursor: pointer;
+  /* the near-black swatch would otherwise vanish into the dark surface */
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
 }
 .swatch.sel {
   border-color: var(--text);

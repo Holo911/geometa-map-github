@@ -124,6 +124,7 @@
 
   "ASM": { "tier": "full" },
   "AUS": { "tier": "full" },
+  "IOA": { "tier": "full" },
   "GUM": { "tier": "full" },
   "MNP": { "tier": "full" },
   "NZL": { "tier": "full" },

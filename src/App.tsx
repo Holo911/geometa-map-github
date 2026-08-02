@@ -265,6 +265,22 @@ export default function App() {
     };
   }, [selectedA3, mode, railSelection, boot, tags]);
 
+  // Countries carrying the active category/tag, for the rail's list. Computed
+  // separately from `highlight` on purpose: opening a country replaces the
+  // spotlight, but the list has to stay put — you're working through it.
+  const railCountries = useMemo(() => {
+    if (mode !== 'category' || !railSelection || !boot) return [];
+    const out: { a3: string; name: string }[] = [];
+    for (const [a3, v] of Object.entries(boot.entryCounts)) {
+      const hit =
+        railSelection.type === 'category'
+          ? (v.byCategory[railSelection.id] ?? 0) > 0
+          : v.tagIds.includes(railSelection.id);
+      if (hit) out.push({ a3, name: countryName(a3, propsByA3.get(a3)?.name ?? a3, lang) });
+    }
+    return out.sort((a, b) => a.name.localeCompare(b.name, lang));
+  }, [mode, railSelection, boot, propsByA3, lang]);
+
   // ---- admin-1 regions for the selected country (lazy + cached) ----
   const { regions: admin1 } = useAdmin1(selectedA3);
 
@@ -628,6 +644,9 @@ export default function App() {
           tagCountryCounts={tagCountryCounts}
           selection={railSelection}
           onSelect={onRailSelect}
+          countries={railCountries}
+          selectedA3={selectedA3}
+          onSelectCountry={selectCountry}
         />
       )}
 

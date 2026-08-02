@@ -131,7 +131,7 @@ const bySideExpr = (left: unknown, right: unknown) =>
   ['case', ['==', ['feature-state', 'side'], 'left'], left, right];
 
 // Hue-family constancy is the rule: hovering never moves a country to the other
-// family's hue. A left-hand-traffic country brightens within coral, a
+// family's hue. A left-hand-traffic country brightens within violet, a
 // right-hand one within blue. (Uniform mode has one family, so one hover.)
 function fillColorExpr(bySide: boolean): maplibregl.ExpressionSpecification {
   if (!bySide) {

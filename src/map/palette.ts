@@ -6,10 +6,16 @@
 // tokens, so the legend can never drift from what the map actually renders.
 //
 // Design rules (V3):
-//   1. Two clean hue families — right-hand traffic is BLUE, left-hand is CORAL.
+//   1. Two clean hue families — right-hand traffic is BLUE, left-hand is VIOLET.
 //      A country never leaves its family: hovering a LHT country brightens it
-//      within coral, never to blue. This is what makes driving side readable
+//      within violet, never to blue. This is what makes driving side readable
 //      at a glance.
+//      Left-hand traffic used to be CORAL, which collided head-on with tags:
+//      a "red plates" tag paints its countries red, and red already meant
+//      "drives left". Violet is the one region of the wheel no plate or sign
+//      clue ever lands in, so the two meanings can never be confused. Keep it
+//      that way — see TAG_COLORS in EntryEditor, which deliberately offers no
+//      violet.
 //   2. The ocean stays near-black. It is the contrast floor that lets the
 //      saturated land fills pop instead of feeling washed out.
 //   3. "Limited" coverage reads LIGHTER + desaturated + dashed — a faded
@@ -45,15 +51,15 @@ export const RHT: SidePalette = {
   limitedLine: '#8fb0cc',
 };
 
-/** Left-hand traffic — coral family. */
+/** Left-hand traffic — violet family. */
 export const LHT: SidePalette = {
-  full: '#c05a48',
-  notes: '#d76f57',
-  border: '#e0937f',
-  hover: '#ff8a6b',
-  hoverBorder: '#ffd9cc',
-  limited: '#96604f',
-  limitedLine: '#d0a08c',
+  full: '#8f57c0',
+  notes: '#a56ed6',
+  border: '#c19ae0',
+  hover: '#c98cff',
+  hoverBorder: '#ecd9ff',
+  limited: '#7a628f',
+  limitedLine: '#b8a0cc',
 };
 
 /** Driving-side colouring OFF — one coherent blue, same brightness spirit. */
@@ -108,7 +114,7 @@ export const MAP = {
 // blob — the same trap M11 hit with country borders on brighter land.
 export const REGION_TINT = {
   right: { base: '#79b0e8', line: '#204568' },
-  left: { base: '#f0a68f', line: '#6d2f21' },
+  left: { base: '#cfa3e8', line: '#3f1f5c' },
   uniform: { base: '#8fb2d6', line: '#26445f' },
 } as const;
 

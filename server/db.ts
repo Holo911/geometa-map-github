@@ -125,6 +125,14 @@ const migrations: Array<(db: DB) => void> = [
       );
     `);
   },
+
+  // M20: a tag can carry a second colour. Most plate and sign clues are a PAIR
+  // — yellow-on-black, blue-on-white — and forcing them into one swatch threw
+  // away the half that usually identifies the country. NULL means single-colour,
+  // so every existing tag keeps rendering exactly as before.
+  (d) => {
+    d.exec(`ALTER TABLE tags ADD COLUMN color2 TEXT;`);
+  },
 ];
 
 function runMigrations(d: DB) {

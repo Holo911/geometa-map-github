@@ -17,7 +17,7 @@ bootstrapRouter.get('/', (_req, res) => {
     .prepare('SELECT id, name, emoji, sort, is_default FROM categories ORDER BY sort, name')
     .all();
 
-  const tags = db.prepare('SELECT id, name, color, sort FROM tags ORDER BY sort, name').all();
+  const tags = db.prepare('SELECT id, name, color, color2, sort FROM tags ORDER BY sort, name').all();
 
   const settingsRows = db.prepare('SELECT key, value FROM settings').all() as Array<{
     key: string;

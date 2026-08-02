@@ -111,6 +111,9 @@ export const ja: Record<keyof typeof en, string> = {
   'editor.tags': 'タグ',
   'editor.newTagPlaceholder': '新しいタグ名…',
   'editor.createTag': '+ 作成',
+  'editor.editTagColors': 'このタグを編集',
+  'editor.tagSecondColor': '2色目（任意）',
+  'editor.tagNoSecondColor': '2色目なし',
   'editor.appliesTo': '適用範囲',
   'editor.wholeCountry': '国全体',
   'editor.specificRegions': '地域を指定',
@@ -150,7 +153,7 @@ export const ja: Record<keyof typeof en, string> = {
   'settings.mapAppearance': '地図の表示',
   'settings.colorBySide': '通行区分で色分けする',
   'settings.colorBySideHint':
-    'オン：右側通行は青、左側通行はコーラル。オフ：すべて同じ色で表示します。',
+    'オン：右側通行は青、左側通行は紫。オフ：すべて同じ色で表示します。',
   'settings.limitedAsUncovered': '限定カバレッジを対象外として扱う',
   'settings.limitedAsUncoveredHint': 'トレッカーなど部分的なカバレッジしかない国を隠します。',
   'settings.uncoveredCountries': '対象外の国',
